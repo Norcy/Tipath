@@ -6,6 +6,7 @@ tags:
   - GitHub
   - AI
   - 工作流
+summary: 把 GitHub 直接接进 ChatGPT 对话，把讨论、改文件和提交代码放在同一个上下文里完成。
 ---
 
 ChatGPT 的对话框可以直接连接 GitHub。
