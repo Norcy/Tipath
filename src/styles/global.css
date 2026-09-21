@@ -391,3 +391,20 @@ button, input { font: inherit; }
     padding: 15px 0;
   }
 }
+
+.home-slogan {
+  margin: -18px 0 34px;
+  color: #5f5a52;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: .95rem;
+  letter-spacing: .05em;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .home-slogan {
+    margin-top: -10px;
+    margin-bottom: 28px;
+    font-size: .9rem;
+  }
+}
