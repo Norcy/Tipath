@@ -9,10 +9,16 @@
   "theme_color": "#0f5a43",
   "icons": [
     {
+      "src": "/Tipath/share-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/Tipath/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
