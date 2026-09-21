@@ -37,9 +37,12 @@ const socialDescription = description || '小径通幽，日有所进。小事�
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={socialDescription} />
-    <meta property="og:image" content={new URL(`${base}favicon.svg`, Astro.site ?? Astro.url.origin)} />
+    <meta property="og:image" content={new URL(`${base}og-image.jpg`, Astro.site ?? Astro.url.origin)} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="小径 · Tipath" />
-    <meta name="twitter:image" content={new URL(`${base}favicon.svg`, Astro.site ?? Astro.url.origin)} />
+    <meta name="twitter:image" content={new URL(`${base}og-image.jpg`, Astro.site ?? Astro.url.origin)} />
 
     <meta name="theme-color" content="#0f5a43" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
