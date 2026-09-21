@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -31,13 +31,16 @@ jobs:
           corepack enable
           corepack prepare yarn@1.22.22 --activate
 
+      - name: Cache Yarn
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/yarn
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+
       - name: Install dependencies
-        run: |
-          if [ -f yarn.lock ]; then
-            yarn install --frozen-lockfile --non-interactive
-          else
-            yarn install --non-interactive
-          fi
+        run: yarn install --frozen-lockfile --non-interactive --ignore-optional
 
       - name: Build
         run: yarn build
@@ -46,18 +49,6 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
-
-      - name: Commit yarn.lock
-        if: ${{ hashFiles('yarn.lock') != '' }}
-        run: |
-          if git ls-files --error-unmatch yarn.lock >/dev/null 2>&1; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add yarn.lock
-          git commit -m "build: add yarn lockfile"
-          git push
 
   deploy:
     needs: build
