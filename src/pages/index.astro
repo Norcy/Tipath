@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+const tips = (await getCollection('tips'))
+  .filter((tip) => !tip.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const tags = [...new Set(tips.flatMap((tip) => tip.data.tags))].sort((a, b) =>
+  a.localeCompare(b, 'zh-CN')
+);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(date);
+
+const summaryOf = (tip: (typeof tips)[number]) =>
+  tip.data.summary ?? '一条值得留下、也值得复用的小经验。';
+---
+<BaseLayout>
+  <section class="hero">
+    <p class="hero-copy">工作、学习与工具使用中的小经验。它们未必宏大，却常常能少一点周折，多一点从容。</p>
+  </section>
+
+  <section aria-label="Tips">
+    <div class="tools">
+      <input id="search" class="search" type="search" placeholder="搜索标题、标签或内容…" autocomplete="off" />
+      <span id="count" class="count">{tips.length} 条</span>
+    </div>
+
+    <div class="tags" aria-label="标签筛选">
+      <button class="tag-button active" data-tag="">全部</button>
+      {tags.map((tag) => <button class="tag-button" data-tag={tag}>{tag}</button>)}
+    </div>
+
+    <div id="tip-list" class="tip-list">
+      {tips.map((tip, index) => (
+        <a
+          class="tip-card"
+          href={`${base}tips/${tip.id}/`}
+          data-title={tip.data.title.toLowerCase()}
+          data-tags={tip.data.tags.join(' ').toLowerCase()}
+          data-index={index}
+        >
+          <div class="tip-meta">
+            <span>#{String(tips.length - index).padStart(3, '0')}</span>
+            <span>{formatDate(tip.data.date)}</span>
+          </div>
+          <h2 class="tip-title">{tip.data.title}</h2>
+          <p class="tip-summary">{summaryOf(tip)}</p>
+          <div class="tip-tags">
+            {tip.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        </a>
+      ))}
+    </div>
+    <div id="empty-state" class="empty-state">没有找到匹配的内容。</div>
+  </section>
+
+  <script is:inline>
+    const search = document.querySelector('#search');
+    const cards = [...document.querySelectorAll('.tip-card')];
+    const tagButtons = [...document.querySelectorAll('.tag-button')];
+    const count = document.querySelector('#count');
+    const empty = document.querySelector('#empty-state');
+    let activeTag = '';
+
+    const applyFilter = () => {
+      const query = (search?.value || '').trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const title = card.dataset.title || '';
+        const tags = card.dataset.tags || '';
+        const text = card.textContent?.toLowerCase() || '';
+        const matchQuery = !query || title.includes(query) || tags.includes(query) || text.includes(query);
+        const matchTag = !activeTag || tags.split(' ').includes(activeTag.toLowerCase());
+        const show = matchQuery && matchTag;
+        card.style.display = show ? '' : 'none';
+        if (show) visible += 1;
+      });
+
+      count.textContent = `${visible} 条`;
+      empty.style.display = visible ? 'none' : 'block';
+    };
+
+    search?.addEventListener('input', applyFilter);
+    tagButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeTag = button.dataset.tag || '';
+        tagButtons.forEach((item) => item.classList.toggle('active', item === button));
+        applyFilter();
+      });
+    });
+  </script>
+</BaseLayout>
