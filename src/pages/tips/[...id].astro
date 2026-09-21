@@ -33,19 +33,28 @@ const date = new Intl.DateTimeFormat('zh-CN', {
         <h1>{tip.data.title}</h1>
       </div>
 
-      <button
-        id="share-button"
-        class="share-button"
-        type="button"
-        data-title={tip.data.title}
-        data-summary={tip.data.summary ?? ''}
-        aria-label="分享这条经验"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M18 8a3 3 0 1 0-2.83-4A3 3 0 0 0 15 5c0 .2.02.4.06.59L8.91 9.1A3 3 0 0 0 7 8.5a3 3 0 1 0 1.91 5.4l6.15 3.51A3 3 0 0 0 15 18a3 3 0 1 0 .83-2.07l-6.14-3.51c.04-.19.06-.39.06-.59s-.02-.4-.06-.59l6.14-3.51A3 3 0 0 0 18 8Z" fill="currentColor"/>
-        </svg>
-        <span>分享</span>
-      </button>
+      <div class="share-wrap">
+        <button
+          id="share-button"
+          class="share-button"
+          type="button"
+          data-title={tip.data.title}
+          data-summary={tip.data.summary ?? ''}
+          aria-expanded="false"
+          aria-controls="share-menu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a3 3 0 1 0-2.83-4A3 3 0 0 0 15 5c0 .2.02.4.06.59L8.91 9.1A3 3 0 0 0 7 8.5a3 3 0 1 0 1.91 5.4l6.15 3.51A3 3 0 0 0 15 18a3 3 0 1 0 .83-2.07l-6.14-3.51c.04-.19.06-.39.06-.59s-.02-.4-.06-.59l6.14-3.51A3 3 0 0 0 18 8Z" fill="currentColor"/>
+          </svg>
+          <span>分享</span>
+        </button>
+
+        <div id="share-menu" class="share-menu" hidden>
+          <button id="native-share" type="button">系统分享</button>
+          <button id="copy-link" type="button">复制链接</button>
+          <button id="copy-all" type="button">复制标题 + 链接</button>
+        </div>
+      </div>
     </div>
 
     <p id="share-feedback" class="share-feedback" role="status" aria-live="polite"></p>
@@ -57,7 +66,14 @@ const date = new Intl.DateTimeFormat('zh-CN', {
 
   <script is:inline>
     const shareButton = document.querySelector('#share-button');
+    const shareMenu = document.querySelector('#share-menu');
+    const nativeShare = document.querySelector('#native-share');
+    const copyLink = document.querySelector('#copy-link');
+    const copyAll = document.querySelector('#copy-all');
     const feedback = document.querySelector('#share-feedback');
+
+    const title = shareButton?.dataset.title || document.title;
+    const summary = shareButton?.dataset.summary || '';
 
     const showFeedback = (message) => {
       if (!feedback) return;
@@ -66,35 +82,75 @@ const date = new Intl.DateTimeFormat('zh-CN', {
       window.setTimeout(() => feedback.classList.remove('show'), 1800);
     };
 
-    shareButton?.addEventListener('click', async () => {
-      const title = shareButton.dataset.title || document.title;
-      const summary = shareButton.dataset.summary || '';
-      const url = window.location.href;
-      const shareData = { title, text: summary, url };
+    const closeMenu = () => {
+      if (!shareMenu || !shareButton) return;
+      shareMenu.hidden = true;
+      shareButton.setAttribute('aria-expanded', 'false');
+    };
 
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-          return;
-        } catch (error) {
-          if (error?.name === 'AbortError') return;
-        }
-      }
-
+    const copyText = async (text, message) => {
       try {
-        await navigator.clipboard.writeText(url);
-        showFeedback('链接已复制，可粘贴到微信或 QQ');
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          throw new Error('Clipboard API unavailable');
+        }
       } catch {
         const textArea = document.createElement('textarea');
-        textArea.value = url;
+        textArea.value = text;
         textArea.style.position = 'fixed';
         textArea.style.opacity = '0';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');
         textArea.remove();
-        showFeedback('链接已复制，可粘贴到微信或 QQ');
       }
+      closeMenu();
+      showFeedback(message);
+    };
+
+    shareButton?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!shareMenu) return;
+      const willOpen = shareMenu.hidden;
+      shareMenu.hidden = !willOpen;
+      shareButton.setAttribute('aria-expanded', String(willOpen));
+    });
+
+    nativeShare?.addEventListener('click', async () => {
+      const shareData = { title, text: summary, url: window.location.href };
+
+      if (!navigator.share) {
+        await copyText(window.location.href, '当前浏览器不支持系统分享，链接已复制');
+        return;
+      }
+
+      try {
+        await navigator.share(shareData);
+        closeMenu();
+      } catch (error) {
+        if (error?.name !== 'AbortError') {
+          await copyText(window.location.href, '系统分享不可用，链接已复制');
+        }
+      }
+    });
+
+    copyLink?.addEventListener('click', () =>
+      copyText(window.location.href, '链接已复制')
+    );
+
+    copyAll?.addEventListener('click', () =>
+      copyText(`${title}\n${window.location.href}`, '标题和链接已复制')
+    );
+
+    document.addEventListener('click', (event) => {
+      if (!shareMenu?.hidden && !event.target.closest('.share-wrap')) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
     });
   </script>
 </BaseLayout>
