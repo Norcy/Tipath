@@ -40,10 +40,8 @@ const summaryOf = (tip: (typeof tips)[number]) =>
           href={`${base}tips/${tip.id}/`}
           data-title={tip.data.title.toLowerCase()}
           data-tags={tip.data.tags.join(' ').toLowerCase()}
-          data-index={index}
         >
           <div class="tip-meta">
-            <span>#{String(tips.length - index).padStart(3, '0')}</span>
             <span>{formatDate(tip.data.date)}</span>
           </div>
           <h2 class="tip-title">{tip.data.title}</h2>
