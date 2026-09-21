@@ -12,7 +12,6 @@ export async function getStaticPaths() {
 
 const { tip } = Astro.props;
 const { Content } = await render(tip);
-const base = import.meta.env.BASE_URL;
 
 const date = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -20,41 +19,22 @@ const date = new Intl.DateTimeFormat('zh-CN', {
   day: '2-digit'
 }).format(tip.data.date);
 ---
-<BaseLayout title={tip.data.title} description={tip.data.summary}>
+<BaseLayout title={tip.data.title} description={tip.data.summary} compact>
   <article class="article">
-    <a class="back-link" href={base}>← 返回小径</a>
-
     <div class="article-head">
-      <div>
-        <div class="article-meta">
-          <span>{date}</span>
-          {tip.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
-        </div>
-        <h1>{tip.data.title}</h1>
-      </div>
-
-      <div class="share-wrap">
-        <button
-          id="share-button"
-          class="share-button"
-          type="button"
-          data-title={tip.data.title}
-          data-summary={tip.data.summary ?? ''}
-          aria-expanded="false"
-          aria-controls="share-menu"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18 8a3 3 0 1 0-2.83-4A3 3 0 0 0 15 5c0 .2.02.4.06.59L8.91 9.1A3 3 0 0 0 7 8.5a3 3 0 1 0 1.91 5.4l6.15 3.51A3 3 0 0 0 15 18a3 3 0 1 0 .83-2.07l-6.14-3.51c.04-.19.06-.39.06-.59s-.02-.4-.06-.59l6.14-3.51A3 3 0 0 0 18 8Z" fill="currentColor"/>
-          </svg>
-          <span>分享</span>
-        </button>
-
-        <div id="share-menu" class="share-menu" hidden>
-          <button id="native-share" type="button">系统分享</button>
-          <button id="copy-link" type="button">复制链接</button>
-          <button id="copy-all" type="button">复制标题 + 链接</button>
-        </div>
-      </div>
+      <h1>{tip.data.title}</h1>
+      <button
+        id="share-button"
+        class="share-icon-button"
+        type="button"
+        data-title={tip.data.title}
+        aria-label="分享"
+        title="分享"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 8a3 3 0 1 0-2.83-4A3 3 0 0 0 15 5c0 .2.02.4.06.59L8.91 9.1A3 3 0 0 0 7 8.5a3 3 0 1 0 1.91 5.4l6.15 3.51A3 3 0 0 0 15 18a3 3 0 1 0 .83-2.07l-6.14-3.51c.04-.19.06-.39.06-.59s-.02-.4-.06-.59l6.14-3.51A3 3 0 0 0 18 8Z" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
 
     <p id="share-feedback" class="share-feedback" role="status" aria-live="polite"></p>
@@ -62,39 +42,28 @@ const date = new Intl.DateTimeFormat('zh-CN', {
     <div class="article-body">
       <Content />
     </div>
+
+    <div class="article-foot">
+      <span>{date}</span>
+      {tip.data.tags.length > 0 && <span>·</span>}
+      <span>{tip.data.tags.join(' · ')}</span>
+    </div>
   </article>
 
   <script is:inline>
     const shareButton = document.querySelector('#share-button');
-    const shareMenu = document.querySelector('#share-menu');
-    const nativeShare = document.querySelector('#native-share');
-    const copyLink = document.querySelector('#copy-link');
-    const copyAll = document.querySelector('#copy-all');
     const feedback = document.querySelector('#share-feedback');
-
-    const title = shareButton?.dataset.title || document.title;
-    const summary = shareButton?.dataset.summary || '';
 
     const showFeedback = (message) => {
       if (!feedback) return;
       feedback.textContent = message;
       feedback.classList.add('show');
-      window.setTimeout(() => feedback.classList.remove('show'), 1800);
+      window.setTimeout(() => feedback.classList.remove('show'), 1600);
     };
 
-    const closeMenu = () => {
-      if (!shareMenu || !shareButton) return;
-      shareMenu.hidden = true;
-      shareButton.setAttribute('aria-expanded', 'false');
-    };
-
-    const copyText = async (text, message) => {
+    const copyText = async (text) => {
       try {
-        if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(text);
-        } else {
-          throw new Error('Clipboard API unavailable');
-        }
+        await navigator.clipboard.writeText(text);
       } catch {
         const textArea = document.createElement('textarea');
         textArea.value = text;
@@ -105,52 +74,12 @@ const date = new Intl.DateTimeFormat('zh-CN', {
         document.execCommand('copy');
         textArea.remove();
       }
-      closeMenu();
-      showFeedback(message);
     };
 
-    shareButton?.addEventListener('click', (event) => {
-      event.stopPropagation();
-      if (!shareMenu) return;
-      const willOpen = shareMenu.hidden;
-      shareMenu.hidden = !willOpen;
-      shareButton.setAttribute('aria-expanded', String(willOpen));
-    });
-
-    nativeShare?.addEventListener('click', async () => {
-      const shareData = { title, text: summary, url: window.location.href };
-
-      if (!navigator.share) {
-        await copyText(window.location.href, '当前浏览器不支持系统分享，链接已复制');
-        return;
-      }
-
-      try {
-        await navigator.share(shareData);
-        closeMenu();
-      } catch (error) {
-        if (error?.name !== 'AbortError') {
-          await copyText(window.location.href, '系统分享不可用，链接已复制');
-        }
-      }
-    });
-
-    copyLink?.addEventListener('click', () =>
-      copyText(window.location.href, '链接已复制')
-    );
-
-    copyAll?.addEventListener('click', () =>
-      copyText(`${title}\n${window.location.href}`, '标题和链接已复制')
-    );
-
-    document.addEventListener('click', (event) => {
-      if (!shareMenu?.hidden && !event.target.closest('.share-wrap')) {
-        closeMenu();
-      }
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeMenu();
+    shareButton?.addEventListener('click', async () => {
+      const title = shareButton.dataset.title || document.title;
+      await copyText(`《${title}》\n${window.location.href}`);
+      showFeedback('已复制标题和链接');
     });
   </script>
 </BaseLayout>
