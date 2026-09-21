@@ -1,0 +1,18 @@
+{
+  "name": "小径 · Tipath",
+  "short_name": "Tipath",
+  "description": "小径通幽，日有所进。小事之间，自有其法。",
+  "start_url": "/Tipath/",
+  "scope": "/Tipath/",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#0f5a43",
+  "icons": [
+    {
+      "src": "/Tipath/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
