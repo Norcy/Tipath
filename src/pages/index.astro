@@ -10,56 +10,56 @@ const tips = (await getCollection('tips'))
 const tags = [...new Set(tips.flatMap((tip) => tip.data.tags))].sort((a, b) =>
   a.localeCompare(b, 'zh-CN')
 );
-
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(date);
-
-const summaryOf = (tip: (typeof tips)[number]) =>
-  tip.data.summary ?? '一条值得留下、也值得复用的小经验。';
 ---
-<BaseLayout>
-  <section aria-label="Tips">
-    <div class="tools">
-      <input id="search" class="search" type="search" placeholder="搜索标题、标签或内容…" autocomplete="off" />
-      <span id="count" class="count">{tips.length} 条</span>
+<BaseLayout bare>
+  <section class="home" aria-label="Tips">
+    <div class="home-head">
+      <h1 class="home-title">小径</h1>
+      <button
+        id="search-toggle"
+        class="search-toggle"
+        type="button"
+        aria-label="搜索"
+        aria-expanded="false"
+        aria-controls="search-panel"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
 
-    <div class="tags" aria-label="标签筛选">
-      <button class="tag-button active" data-tag="">全部</button>
-      {tags.map((tag) => <button class="tag-button" data-tag={tag}>{tag}</button>)}
+    <div id="search-panel" class="search-panel" hidden>
+      <input id="search" class="search" type="search" placeholder="搜索…" autocomplete="off" />
+      <div class="tags" aria-label="标签筛选">
+        <button class="tag-button active" data-tag="">全部</button>
+        {tags.map((tag) => <button class="tag-button" data-tag={tag}>{tag}</button>)}
+      </div>
     </div>
 
-    <div id="tip-list" class="tip-list">
+    <div id="tip-list" class="tip-list tip-list-minimal">
       {tips.map((tip, index) => (
         <a
-          class="tip-card"
+          class="tip-row"
           href={`${base}tips/${tip.id}/`}
           data-title={tip.data.title.toLowerCase()}
-          data-tags={tip.data.tags.join(' ').toLowerCase()}
+          data-tags={JSON.stringify(tip.data.tags.map((tag) => tag.toLowerCase()))}
         >
-          <div class="tip-meta">
-            <span>{formatDate(tip.data.date)}</span>
-          </div>
-          <h2 class="tip-title">{tip.data.title}</h2>
-          <p class="tip-summary">{summaryOf(tip)}</p>
-          <div class="tip-tags">
-            {tip.data.tags.map((tag) => <span class="tag">{tag}</span>)}
-          </div>
+          <span class="tip-number">#{String(tips.length - index).padStart(3, '0')}</span>
+          <span class="tip-row-title">{tip.data.title}</span>
         </a>
       ))}
     </div>
+
     <div id="empty-state" class="empty-state">没有找到匹配的内容。</div>
   </section>
 
   <script is:inline>
+    const toggle = document.querySelector('#search-toggle');
+    const panel = document.querySelector('#search-panel');
     const search = document.querySelector('#search');
-    const cards = [...document.querySelectorAll('.tip-card')];
+    const rows = [...document.querySelectorAll('.tip-row')];
     const tagButtons = [...document.querySelectorAll('.tag-button')];
-    const count = document.querySelector('#count');
     const empty = document.querySelector('#empty-state');
     let activeTag = '';
 
@@ -67,22 +67,34 @@ const summaryOf = (tip: (typeof tips)[number]) =>
       const query = (search?.value || '').trim().toLowerCase();
       let visible = 0;
 
-      cards.forEach((card) => {
-        const title = card.dataset.title || '';
-        const tags = card.dataset.tags || '';
-        const text = card.textContent?.toLowerCase() || '';
-        const matchQuery = !query || title.includes(query) || tags.includes(query) || text.includes(query);
-        const matchTag = !activeTag || tags.split(' ').includes(activeTag.toLowerCase());
+      rows.forEach((row) => {
+        const title = row.dataset.title || '';
+        let tags = [];
+        try {
+          tags = JSON.parse(row.dataset.tags || '[]');
+        } catch {}
+
+        const matchQuery = !query || title.includes(query) || tags.some((tag) => tag.includes(query));
+        const matchTag = !activeTag || tags.includes(activeTag.toLowerCase());
         const show = matchQuery && matchTag;
-        card.style.display = show ? '' : 'none';
+
+        row.style.display = show ? '' : 'none';
         if (show) visible += 1;
       });
 
-      count.textContent = `${visible} 条`;
       empty.style.display = visible ? 'none' : 'block';
     };
 
+    toggle?.addEventListener('click', () => {
+      if (!panel) return;
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      toggle.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen) window.setTimeout(() => search?.focus(), 0);
+    });
+
     search?.addEventListener('input', applyFilter);
+
     tagButtons.forEach((button) => {
       button.addEventListener('click', () => {
         activeTag = button.dataset.tag || '';
