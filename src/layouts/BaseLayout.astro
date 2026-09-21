@@ -5,12 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   compact?: boolean;
+  bare?: boolean;
 }
 
 const {
   title = '小径 · Tipath',
   description = '小径通幽，日有所进。小事之间，自有其法。',
-  compact = false
+  compact = false,
+  bare = false
 } = Astro.props;
 
 const pageTitle = title === '小径 · Tipath' ? title : `${title} · 小径`;
@@ -52,7 +54,7 @@ const socialDescription = description || '小径通幽，日有所进。小事�
   </head>
   <body>
     <div class="site-shell">
-      {compact ? (
+      {!bare && (compact ? (
         <header class="site-header site-header-compact">
           <a class="compact-brand" href={base}>小径</a>
         </header>
@@ -64,11 +66,11 @@ const socialDescription = description || '小径通幽，日有所进。小事�
           </a>
           <p class="slogan">小径通幽，日有所进。小事之间，自有其法。</p>
         </header>
-      )}
+      ))}
       <main>
         <slot />
       </main>
-      {!compact && (
+      {!compact && !bare && (
         <footer class="site-footer">
           <span>Tipath</span>
           <span>小径通幽</span>
