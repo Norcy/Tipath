@@ -174,110 +174,83 @@ button, input { font: inherit; }
 
 .article {
   max-width: 720px;
-  padding: 46px 0 72px;
+  padding: 28px 0 64px;
 }
-.back-link {
-  display: inline-block;
-  color: var(--muted);
-  margin-bottom: 28px;
-  font-size: .88rem;
+.site-header-compact {
+  padding: 28px 0 8px;
+  border-bottom: 0;
 }
-.back-link:hover { color: var(--ink); }
+.compact-brand {
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  font-size: 1.05rem;
+  letter-spacing: .08em;
+  color: #5f5a52;
+}
+.compact-brand:hover { color: var(--ink); }
 .article-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 20px;
   align-items: start;
+  margin-bottom: 24px;
 }
 .article h1 {
-  margin: 8px 0 12px;
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
   letter-spacing: -.02em;
-  line-height: 1.25;
+  line-height: 1.28;
 }
-.article-meta {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-  color: var(--muted);
-  font-size: .82rem;
-  margin-bottom: 34px;
-}
-.share-wrap {
-  position: relative;
-}
-.share-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 2px;
-  padding: 8px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255,255,255,.45);
-  color: #5f5a52;
+.share-icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #8a847a;
   cursor: pointer;
-  transition: border-color .18s ease, background .18s ease, color .18s ease;
 }
-.share-button:hover {
-  border-color: #a8b4aa;
+.share-icon-button:hover {
   background: var(--accent-soft);
   color: #34453a;
 }
-.share-button svg {
-  width: 15px;
-  height: 15px;
-  flex: 0 0 auto;
-}
-.share-menu {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 176px;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--paper);
-  box-shadow: 0 12px 32px rgba(37,35,31,.12);
-}
-.share-menu[hidden] {
-  display: none;
-}
-.share-menu button {
-  width: 100%;
-  padding: 9px 10px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--ink);
-  text-align: left;
-  cursor: pointer;
-}
-.share-menu button:hover {
-  background: var(--accent-soft);
+.share-icon-button svg {
+  width: 17px;
+  height: 17px;
 }
 .share-feedback {
-  min-height: 1.4em;
-  margin: -18px 0 20px;
-  color: var(--muted);
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 30;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(37,35,31,.9);
+  color: #fffdf8;
   font-size: .8rem;
   opacity: 0;
-  transition: opacity .18s ease;
+  transform: translate(-50%, 8px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
 }
-.share-feedback.show { opacity: 1; }
+.share-feedback.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 .article-body {
   font-size: 1rem;
   line-height: 1.9;
 }
-.article-body p { margin: 1.15em 0; }
+.article-body p { margin: 1.05em 0; }
 .article-body h2, .article-body h3 {
-  margin-top: 2em;
+  margin-top: 1.9em;
   line-height: 1.4;
 }
 .article-body blockquote {
-  margin: 1.5em 0;
+  margin: 1.4em 0;
   padding: .2em 1em;
   border-left: 3px solid #a9b5ab;
   color: #666158;
@@ -297,6 +270,17 @@ button, input { font: inherit; }
   color: #f7f2e8;
 }
 .article-body pre code { background: transparent; padding: 0; }
+.article-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 42px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(222,217,207,.65);
+  color: #aaa49a;
+  font-size: .72rem;
+  line-height: 1.7;
+}
 
 .site-footer {
   display: flex;
@@ -315,10 +299,8 @@ button, input { font: inherit; }
   .tools { grid-template-columns: 1fr; }
   .count { justify-self: end; }
   .tip-card { padding: 18px; border-radius: 13px; }
-  .article-head { grid-template-columns: 1fr; gap: 4px; }
-  .share-wrap { justify-self: start; }
-  .share-button { margin: 0 0 22px; }
-  .share-menu { left: 0; right: auto; }
-  .share-feedback { margin-top: -14px; }
+  .site-header-compact { padding-top: 22px; }
+  .article { padding-top: 22px; }
+  .article-head { gap: 12px; margin-bottom: 20px; }
   .site-footer { padding-bottom: 28px; }
 }
