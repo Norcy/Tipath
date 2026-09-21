@@ -22,10 +22,6 @@ const summaryOf = (tip: (typeof tips)[number]) =>
   tip.data.summary ?? '一条值得留下、也值得复用的小经验。';
 ---
 <BaseLayout>
-  <section class="hero">
-    <p class="hero-copy">工作、学习与工具使用中的小经验。它们未必宏大，却常常能少一点周折，多一点从容。</p>
-  </section>
-
   <section aria-label="Tips">
     <div class="tools">
       <input id="search" class="search" type="search" placeholder="搜索标题、标签或内容…" autocomplete="off" />
