@@ -204,6 +204,9 @@ button, input { font: inherit; }
   font-size: .82rem;
   margin-bottom: 34px;
 }
+.share-wrap {
+  position: relative;
+}
 .share-button {
   display: inline-flex;
   align-items: center;
@@ -226,6 +229,34 @@ button, input { font: inherit; }
   width: 15px;
   height: 15px;
   flex: 0 0 auto;
+}
+.share-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 176px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  box-shadow: 0 12px 32px rgba(37,35,31,.12);
+}
+.share-menu[hidden] {
+  display: none;
+}
+.share-menu button {
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.share-menu button:hover {
+  background: var(--accent-soft);
 }
 .share-feedback {
   min-height: 1.4em;
@@ -285,7 +316,9 @@ button, input { font: inherit; }
   .count { justify-self: end; }
   .tip-card { padding: 18px; border-radius: 13px; }
   .article-head { grid-template-columns: 1fr; gap: 4px; }
-  .share-button { justify-self: start; margin: 0 0 22px; }
+  .share-wrap { justify-self: start; }
+  .share-button { margin: 0 0 22px; }
+  .share-menu { left: 0; right: auto; }
   .share-feedback { margin-top: -14px; }
   .site-footer { padding-bottom: 28px; }
 }
