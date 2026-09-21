@@ -13,16 +13,33 @@ const {
 
 const pageTitle = title === '小径 · Tipath' ? title : `${title} · 小径`;
 const base = import.meta.env.BASE_URL;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const socialTitle = pageTitle;
+const socialDescription = description || '小径通幽，日有所进。小事之间，自有其法。';
 ---
 <!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={socialDescription} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="小径 · Tipath" />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={socialDescription} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="zh_CN" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={socialDescription} />
+
     <meta name="theme-color" content="#f6f4ef" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <title>{pageTitle}</title>
   </head>
   <body>
     <div class="site-shell">
