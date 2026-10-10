@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -27,6 +28,7 @@ const shareImage = new URL(`${base}share-icon.png`, Astro.site ?? Astro.url.orig
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <ClientRouter fallback="swap" />
 
     <title>{pageTitle}</title>
     <meta name="description" content={socialDescription} />
