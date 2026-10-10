@@ -19,7 +19,7 @@ Codex 负责开发和构建 APK，剩下的问题就是：**如何让电脑远�
 
 答案是 **Tailscale + ADB TCP/IP**。
 
-延伸阅读：[Tailscale 的原理：从 NAT 到安全直连](/Tipath/tips/2026/tailscale-nat-secure-direct/)
+延伸阅读：[《Tailscale 的原理：从 NAT 到安全直连》](/Tipath/tips/2026/tailscale-nat-secure-direct/)
 
 ## 首次配置
 
