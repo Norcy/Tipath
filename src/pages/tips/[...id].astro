@@ -51,6 +51,7 @@ const date = new Intl.DateTimeFormat('zh-CN', {
   </article>
 
   <script is:inline data-astro-rerun>
+    (() => {
     const shareButton = document.querySelector('#share-button');
     const feedback = document.querySelector('#share-feedback');
 
@@ -81,5 +82,6 @@ const date = new Intl.DateTimeFormat('zh-CN', {
       await copyText(`《${title}》\n${window.location.href}`);
       showFeedback('已复制标题和链接');
     });
+    })();
   </script>
 </BaseLayout>
