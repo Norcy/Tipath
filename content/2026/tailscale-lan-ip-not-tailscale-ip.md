@@ -20,7 +20,7 @@ summary: 使用家庭局域网 IP 配合 Tailscale 子网路由，让家里的�
 
 1. Mac 打开 Tailscale，进入 **Settings**，勾选 **Use Tailscale Subnets**。
 
-2. 打开 Tailscale 管理后台 **Accounts → Admin Console → Machines**，找到对应的 Mac，批准对应的子网路由。
+2. 打开 Tailscale 管理后台 **Accounts → Admin Console → Machines**，找到对应的 Mac，点击 **Edit route settings**，勾选需要批准的子网路由并保存。
 
 3. App（比如 Paseo）填写 Mac 的家庭局域网 IP，例如 `192.168.31.161`。
 
