@@ -243,6 +243,7 @@ button, input { font: inherit; }
 .article-body {
   font-size: 1rem;
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 .article-body p { margin: 1.05em 0; }
 .article-body a {
