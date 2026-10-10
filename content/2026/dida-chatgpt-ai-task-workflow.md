@@ -11,7 +11,7 @@ summary: 把滴答清单接入 ChatGPT 和 Codex，让对话结果直接沉淀�
 
 给 ChatGPT 和 Codex 配上滴答清单 MCP：
 
-https://help.dida365.com/articles/7438132116019216384#chatgpt
+[滴答清单 MCP 配置教程](https://help.dida365.com/articles/7438132116019216384#chatgpt)
 
 配好之后，就可以直接在 ChatGPT 对话里读取和操作滴答清单。
 
