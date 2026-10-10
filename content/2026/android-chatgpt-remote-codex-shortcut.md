@@ -21,3 +21,5 @@ summary: 给 ChatGPT 添加 Remote 桌面快捷方式，以后一键直达 Codex
 ## 现在
 
 点击桌面的 **Remote 图标**，直接进入 Codex。
+
+延伸阅读：[《如何保持移动端 Codex Remote 页面简洁》](/Tipath/tips/2026/codex-remote-hide-old-projects/)
