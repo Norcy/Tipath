@@ -1,5 +1,5 @@
 ---
-title: 如何保持 Codex Remote 页面简洁
+title: 如何保持移动端 Codex Remote 页面简洁
 date: 2026-10-10T16:40:00+08:00
 tags:
   - Codex
