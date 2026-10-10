@@ -245,6 +245,11 @@ button, input { font: inherit; }
   line-height: 1.9;
 }
 .article-body p { margin: 1.05em 0; }
+.article-body a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .article-body h2, .article-body h3 {
   margin-top: 1.9em;
   line-height: 1.4;
