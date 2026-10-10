@@ -31,3 +31,7 @@ summary: Tailscale 使用技巧合集。
 ## 小技巧 2：固定设备开启 Expiry disabled
 
 家里的 Mac、NAS 等固定设备，进入 **Accounts → Admin Console → Machines**，开启 **Expiry disabled**，避免密钥过期导致重新登录。
+
+## 小技巧 3：远程工具开启开机启动
+
+家里的 Mac、NAS 作为远程环境时，像 Codex、网易 UU、Tailscale 这类远程工具都建议开启开机启动，避免断电重启后工具未运行导致无法连接。
