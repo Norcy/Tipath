@@ -49,6 +49,7 @@ const tags = [...new Set(tips.flatMap((tip) => tip.data.tags))].sort((a, b) =>
         >
           <span class="tip-number">#{String(tips.length - index).padStart(3, '0')}</span>
           <span class="tip-row-title">{tip.data.title}</span>
+          <time class="tip-row-date" datetime={tip.data.date.toISOString().slice(0, 10)}>{new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).format(tip.data.date).replaceAll("-", ".")}</time>
         </a>
       ))}
     </div>
