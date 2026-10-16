@@ -1,5 +1,5 @@
 ---
-title: 一劳永逸解决Codex 每次提交 Git 的权限问题
+title: 一劳永逸解决 Codex 每次提交 Git 的权限问题
 date: 2026-10-16T21:32:00+08:00
 tags:
   - Codex
