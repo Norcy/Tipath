@@ -365,7 +365,7 @@ button, input { font: inherit; }
 }
 .tip-row {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-columns: 52px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: baseline;
   padding: 17px 0;
@@ -385,14 +385,21 @@ button, input { font: inherit; }
 .tip-row-title {
   font-size: 1rem;
   line-height: 1.55;
+  min-width: 0;
   transition: color .18s ease;
+}
+.tip-row-date {
+  color: #aaa49a;
+  font-size: .72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {
   .home { padding-top: 34px; }
   .home-head { margin-bottom: 30px; }
   .tip-row {
-    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-columns: 44px minmax(0, 1fr) auto;
     gap: 8px;
     padding: 15px 0;
   }
