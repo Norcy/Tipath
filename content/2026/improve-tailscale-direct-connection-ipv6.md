@@ -1,5 +1,5 @@
 ---
-title: 如何让 Tailscale 连接更快、更稳定？
+title: 如何大幅度改善 Tailscale 的连接体验？
 date: 2026-10-24T13:56:00+08:00
 tags:
   - Tailscale
