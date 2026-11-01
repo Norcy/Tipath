@@ -2,6 +2,7 @@
 title: AI × 万物系列：RevenueCat
 date: 2026-11-01T22:30:00+08:00
 tags:
+  - AI × 万物
   - AI
   - RevenueCat
   - Skill
