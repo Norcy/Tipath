@@ -1,7 +1,8 @@
 ---
-title: 滴答清单 × ChatGPT：AI 时代的任务工作流
+title: AI × 万物系列：滴答清单
 date: 2026-09-21T14:42:00+08:00
 tags:
+  - AI × 万物
   - ChatGPT
   - Codex
   - 滴答清单
