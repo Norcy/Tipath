@@ -24,4 +24,8 @@ summary: 基于七牛云现有的 CLI、Skill 和 SDK，封装自己的 Skill，
 
 现在只需要在 AI 里说一句话，就能直接查询余额、查看 CDN 流量等信息，不用再反复打开七牛云控制台。
 
+![AI 调用七牛云 Skill 查询余额、消费和 CDN 流量的实际效果](/Tipath/images/qiniu-ai-skill-demo.webp)
+
+*实际效果：一句话查询七牛云账户余额、月度消费和 APK 流量。*
+
 **核心思路：当现有工具不够 AI 友好时，就把它们重新封装成 AI 能直接使用的 Skill。**
