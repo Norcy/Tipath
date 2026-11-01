@@ -1,7 +1,8 @@
 ---
-title: Sentry × AI：一句话修线上 Bug
+title: AI × 万物系列：Sentry
 date: 2026-09-22T17:42:45+08:00
 tags:
+  - AI × 万物
   - Sentry
   - MCP
   - Skill
