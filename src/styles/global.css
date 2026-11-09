@@ -173,7 +173,7 @@ button, input { font: inherit; }
 }
 
 .article {
-  max-width: 720px;
+  max-width: var(--max);
   padding: 28px 0 64px;
 }
 .site-header-compact {
@@ -276,6 +276,30 @@ button, input { font: inherit; }
   color: #f7f2e8;
 }
 .article-body pre code { background: transparent; padding: 0; }
+.article-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: .95rem;
+}
+.article-body th,
+.article-body td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  min-width: 160px;
+}
+.article-body th {
+  font-weight: 650;
+  background: rgba(235,230,220,.55);
+}
+.article-body tr:last-child td {
+  border-bottom: 0;
+}
+
 .article-foot {
   display: flex;
   flex-wrap: wrap;
