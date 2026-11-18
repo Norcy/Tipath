@@ -17,3 +17,5 @@ default_mode_request_user_input = true
 ```
 
 重启 Codex CLI 即可。
+
+同样在 iTerm2 中遇到滚轮问题，可以看[《Codex CLI 在 iTerm2 中鼠标滚轮无法查看对话历史》](/Tipath/tips/2026/codex-cli-iterm2-mouse-scroll-history/)。
