@@ -45,6 +45,7 @@ const tags = [...new Set(tips.flatMap((tip) => tip.data.tags))].sort((a, b) =>
           class="tip-row"
           href={`${base}tips/${tip.id}/`}
           data-title={tip.data.title.toLowerCase()}
+          data-content={(tip.body || '').toLowerCase()}
           data-tags={JSON.stringify(tip.data.tags.map((tag) => tag.toLowerCase()))}
         >
           <span class="tip-number">#{String(tips.length - index).padStart(3, '0')}</span>
@@ -78,7 +79,7 @@ const tags = [...new Set(tips.flatMap((tip) => tip.data.tags))].sort((a, b) =>
           tags = JSON.parse(row.dataset.tags || '[]');
         } catch {}
 
-        const matchQuery = !query || title.includes(query) || tags.some((tag) => tag.includes(query));
+        const matchQuery = !query || title.includes(query) || tags.some((tag) => tag.includes(query)) || (row.dataset.content || '').includes(query);
         const matchTag = !activeTag || tags.includes(activeTag.toLowerCase());
         const show = matchQuery && matchTag;
 
