@@ -27,14 +27,14 @@ GitHub 仓库
 
 ## 步骤
 
-1. 在 ChatGPT 里连接 GitHub，并授权对应仓库。第一次如果 Pages 权限不足，手动开启一次 GitHub Pages 即可。
+1. 在 ChatGPT 里[连接 GitHub](/Tipath/tips/2026/chatgpt-connect-github/)，并授权对应仓库。第一次如果 Pages 权限不足，手动开启一次 GitHub Pages 即可。
 2. 直接告诉 ChatGPT：
 
 > 帮我把这个仓库搭成一个技术博客。内容使用 Markdown，使用 Astro 生成静态页面，通过 GitHub Actions 自动构建并发布到 GitHub Pages。顺便把页面样式和内容目录一起初始化好。
 
 ## 最佳实践
 
-记得在仓库里放一个 `AGENTS.md`，把你需要调教 AI 的一切东西都写进去。
+记得在仓库里放一个 `AGENTS.md`，把你需要调教 AI 的一切东西都写进去。具体可以看[《工欲善其事，必先利其 AGENTS.md》](/Tipath/tips/2026/agents-md-best-practices/)。
 
 ## 如何写文章
 
