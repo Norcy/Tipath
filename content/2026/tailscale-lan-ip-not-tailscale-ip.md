@@ -34,4 +34,4 @@ summary: Tailscale 使用技巧合集。
 
 ## 小技巧 3：远程工具开启开机启动
 
-家里的 Mac、NAS 作为远程环境时，像 Codex、网易 UU、Tailscale 这类远程工具都建议开启开机启动，避免断电重启后工具未运行导致无法连接。
+家里的 Mac、NAS 作为远程环境时，像 Codex、[网易 UU](/Tipath/tips/2026/netease-uu-remote-ai-essential/)、Tailscale 这类远程工具都建议开启开机启动，避免断电重启后工具未运行导致无法连接。
