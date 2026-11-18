@@ -47,3 +47,5 @@ Tailscale 连接家里的电脑，有两种方式：
 **开启原生 IPv6 后，电脑就有了公网 IP，手机更容易直接连接到它，不需要经过中继服务器。**
 
 这就是为什么只改了一个路由器设置，直连成功率就能大幅提高。
+
+想了解 NAT 穿透的原理，可以看[《Tailscale 的原理：从 NAT 到安全直连》](/Tipath/tips/2026/tailscale-nat-secure-direct/)。
