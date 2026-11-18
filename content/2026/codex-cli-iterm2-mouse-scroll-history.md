@@ -11,3 +11,5 @@ summary: iTerm2 中开启 Enable Mouse Reporting，解决 Codex CLI 鼠标滚轮
 **问题：** 鼠标滚轮向上滚动时，无法查看历史对话，反而会切换输入框中的历史命令。
 
 **解决：** iTerm2 → Settings → Profiles → Terminal → 开启 **Enable Mouse Reporting**。
+
+如果交互式选项菜单无法弹出，参见[《解决 Codex CLI 无法弹出 AskUserQuestion 交互式选项菜单》](/Tipath/tips/2026/codex-cli-askuserquestion-interactive-menu/)。
