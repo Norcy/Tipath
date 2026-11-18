@@ -21,6 +21,8 @@ summary: 从重复犯错中沉淀 AGENTS.md 规则，区分规则与 Skill，并
 
 **每当 AI 重复犯错，就该想想：是不是应该把这条规则写进 AGENTS.md？**
 
+比如[用 AI 搭建和维护这个博客](/Tipath/tips/2026/ai-3-minutes-tech-blog/)，项目里的 AGENTS.md 就负责保留这些习惯。
+
 ## 维护原则
 
 1. **从空白开始。** 不要预设一大堆规则，只会浪费上下文，还可能限制 AI 的自主性。
