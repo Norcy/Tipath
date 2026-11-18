@@ -9,7 +9,7 @@ tags:
 summary: 通过 UU 端口映射，让连接本地 Mac 的 Android 手机访问远程 Mac 上的 Metro，实现 Fast Refresh。
 ---
 
-人在外面，通过 Mac B 上的 UU 远程控制家里的 Mac A 开发 React Native。Metro 运行在 Mac A，Android 手机通过 USB 连接 Mac B。
+人在外面，通过 Mac B 上的 [网易 UU 远程](/Tipath/tips/2026/netease-uu-remote-ai-essential/) 控制家里的 Mac A 开发 React Native。Metro 运行在 Mac A，Android 手机通过 USB 连接 Mac B。
 
 想让手机实现 Fast Refresh，有两种方案：通过 Tailscale 直连，或者使用 **UU 端口映射**。本文介绍后者，无需 Tailscale。
 
