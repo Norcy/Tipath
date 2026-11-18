@@ -10,7 +10,7 @@ summary: 家里常驻 Mac mini 作为 AI 服务器，网易 UU 远程是查看�
 
 AI 时代，家里必放一台 Mac mini，作为 **24 小时在线的 AI 服务器**，否则你永远也解放不了 AI 的生产力。
 
-人在外面，随时通过手机或电脑连接家里的 Mac，让 Codex 帮你写代码、[开发 App](/Tipath/tips/2026/remote-codex-android-apk-tailscale-adb/)、执行各种任务。
+人在外面，随时通过手机或电脑连接家里的 Mac，让 Codex 帮你写代码、开发 App、执行各种任务。
 
 远程连接可以通过 [Tailscale](/Tipath/tips/2026/improve-tailscale-direct-connection-ipv6/)、SSH 等方式解决。
 
@@ -19,8 +19,6 @@ AI 时代，家里必放一台 Mac mini，作为 **24 小时在线的 AI 服务�
 - 处理系统权限弹窗、软件安装等问题。
 - 通过 SourceTree 查看未推送 Diff。
 - 查看 AI 操作浏览器、处理网页弹窗。
-
-远程开发 React Native 时，还能用 [UU 端口映射](/Tipath/tips/2026/uu-remote-react-native-metro-fast-refresh/) 实现 Metro 热刷新。
 
 这时候就需要 [**网易 UU 远程**](https://adl.netease.com/d/g/uuremote/c/brand_broadcast1)。
 
