@@ -13,7 +13,7 @@ summary: 通过远程 Codex、Tailscale 和 ADB TCP/IP，在手机上口喷需�
 
 ## 原理
 
-通过 ChatGPT App 的 Remote，或者网易 UU 等远程方式，连接电脑上的 Codex。
+通过 ChatGPT App 的 Remote，或者[网易 UU 远程](/Tipath/tips/2026/netease-uu-remote-ai-essential/) 等方式，连接电脑上的 Codex。
 
 Codex 负责开发和构建 APK，剩下的问题就是：**如何让电脑远程安装 APK 到手机？**
 
