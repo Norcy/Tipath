@@ -106,3 +106,5 @@ Tailscale 服务器负责帮助双方找到彼此、交换连接信息。
 8. 之后手机直接通过互联网访问家里电脑上的服务，不需要经过 Tailscale 服务器转发实际数据。
 
 一句话总结：Tailscale 先让双方通过服务器找到彼此，再利用 NAT 穿透建立直接连接，最后通过加密和身份验证，让手机安全地访问家里的电脑
+
+实操参考：[《如何大幅度改善 Tailscale 的连接体验？》](/Tipath/tips/2026/improve-tailscale-direct-connection-ipv6/)。
